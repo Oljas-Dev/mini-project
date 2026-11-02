@@ -1,9 +1,15 @@
 import express from "express";
+import autheticateJWT from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/", (req, res) => {
-  res.send("posts create works");
+router.post("/", autheticateJWT, (req, res) => {
+  const { content } = req.body;
+
+  res.status(201).json({
+    message: "Content was added",
+    content,
+  });
 });
 
 router.get("/", (req, res) => {
